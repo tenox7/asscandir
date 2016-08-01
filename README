@@ -1,0 +1,5 @@
+AS-Scandir - scandir(3) replacement
+Includes size and file modification/creation/access time.
+Allows sorting by name, size, time and in reverse.
+
+Copyright (c) 1999-2016 by Antoni Sawicki <as@tenoware.com>
