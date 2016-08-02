@@ -18,18 +18,18 @@
 #include <unistd.h>
 
 typedef struct ASDIR_ {
-	char name[NAME_MAX];
+    char name[NAME_MAX];
     mode_t type;
-	off_t size;
-	time_t atime, mtime, rtime;
+    off_t size;
+    time_t atime, mtime, rtime;
 } ASDIR;
 
 static int namesort(const void *d1, const void *d2) {
-	return(strcmp( ((ASDIR*)d1)->name, ((ASDIR*)d2)->name));
+    return(strcmp( ((ASDIR*)d1)->name, ((ASDIR*)d2)->name));
 }
 
 static int rnamesort(const void *d1, const void *d2) {
-	return(strcmp( ((ASDIR*)d2)->name, ((ASDIR*)d1)->name));
+    return(strcmp( ((ASDIR*)d2)->name, ((ASDIR*)d1)->name));
 }
 
 static int sizesort(const void *d1, const void *d2) {
@@ -57,20 +57,20 @@ static int rtimesort(const void *d1, const void *d2) {
 }
 
 int asscandir(const char *dir, ASDIR **namelist, int (*compar)(const void *, const void *)) {
-	DIR *dirh;
-	ASDIR *names;
-	struct dirent *entry;
+    DIR *dirh;
+    ASDIR *names;
+    struct dirent *entry;
     struct stat fileinfo;
     char filename[PATH_MAX];
     int entries=0;
 
-	dirh=opendir(dir);
-	if(dirh==NULL)
-		return -1;
-		
-	names=(ASDIR*)malloc(sizeof(ASDIR));
-	if(names==NULL)
-		return -1;
+    dirh=opendir(dir);
+    if(dirh==NULL)
+        return -1;
+        
+    names=(ASDIR*)malloc(sizeof(ASDIR));
+    if(names==NULL)
+        return -1;
 
     entry=readdir(dirh);
     while(entry!=NULL) {
@@ -98,14 +98,14 @@ int asscandir(const char *dir, ASDIR **namelist, int (*compar)(const void *, con
         qsort(&names[0], entries, sizeof(ASDIR), compar);
 
     *namelist=names;
-	return entries;
+    return entries;
 }
 
 
 // usage demo
 int main(int argc, char **argv) {
-	ASDIR *testdir;
-	int e, nent;
+    ASDIR *testdir;
+    int e, nent;
 
     nent=asscandir(".", &testdir,  namesort);
 //    nent=asscandir(".", &testdir, rnamesort);
@@ -113,9 +113,9 @@ int main(int argc, char **argv) {
 //    nent=asscandir(".", &testdir, rsizesort);
 //    nent=asscandir(".", &testdir,  timesort);
 //    nent=asscandir(".", &testdir, rtimesort);
-		
+        
     for(e=0; e<nent; e++) 
         printf("%c %s %.1fM \n", S_ISDIR(testdir[e].type) ? 'd' : 'f', testdir[e].name, (float)testdir[e].size/1024/1024);
 
-	return 0;
+    return 0;
 }
