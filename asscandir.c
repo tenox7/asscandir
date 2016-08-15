@@ -25,11 +25,11 @@ typedef struct ASDIR_ {
 } ASDIR;
 
 static int namesort(const void *d1, const void *d2) {
-    return(strcmp( ((ASDIR*)d1)->name, ((ASDIR*)d2)->name));
+    return(strcasecmp( ((ASDIR*)d1)->name, ((ASDIR*)d2)->name));
 }
 
 static int rnamesort(const void *d1, const void *d2) {
-    return(strcmp( ((ASDIR*)d2)->name, ((ASDIR*)d1)->name));
+    return(strcasecmp( ((ASDIR*)d2)->name, ((ASDIR*)d1)->name));
 }
 
 static int sizesort(const void *d1, const void *d2) {
