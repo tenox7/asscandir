@@ -1,13 +1,11 @@
-//
-// AS-Scandir - scandir(3) replacement
-// Includes size and file modification/creation/access time.
-// Allows sorting by name, size, time and in reverse.
-// Uses custom struct for data, reduced unnecessary *** to ** for namelist.
-// Removed silly array size estimation bullshit.
-// Removed select/filter argument.
-//
-// Copyright (c) 1999-2016 by Antoni Sawicki <as@tenoware.com>
-//
+/*
+ * as-scandir - scandir(3) replacement
+ * Allows sorting by name, size, time and in reverse.
+ *
+ * Written by Antoni Sawicki <as@tenoware.com>
+ * This file is in Public Domain
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,6 +14,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <limits.h>
 
 typedef struct ASDIR_ {
     char name[NAME_MAX];
@@ -75,8 +74,10 @@ int asscandir(const char *dir, ASDIR **namelist, int (*compar)(const void *, con
     entry=readdir(dirh);
     while(entry!=NULL) {
         snprintf(filename, sizeof(filename), "%s/%s", dir, entry->d_name);
-        if(stat(filename, &fileinfo)!=0)
-            return -1;
+        if(stat(filename, &fileinfo)!=0) {
+            entry=readdir(dirh);
+            continue;
+        }
 
         memset(&names[entries], 0, sizeof(ASDIR));
         strcpy(names[entries].name, entry->d_name);
