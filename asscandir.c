@@ -2,8 +2,8 @@
  * as-scandir - scandir(3) replacement
  * Allows sorting by name, size, time and in reverse.
  *
- * Written by Antoni Sawicki <as@tenoware.com>
- * This file is in Public Domain
+ * Copyright (c) 2018 by Antoni Sawicki
+ * Apache 2.0 License
  */
 
 #include <stdio.h>
