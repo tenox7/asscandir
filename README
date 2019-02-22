@@ -1,5 +1,5 @@
 AS-Scandir - scandir(3) replacement
 Allows sorting by name, size, time and in reverse
 
-Written by Antoni Sawicki <as@tenoware.com>
-Public Domain License
+Copyright (c) by Antoni Sawicki 
+Apache 2.0 License
